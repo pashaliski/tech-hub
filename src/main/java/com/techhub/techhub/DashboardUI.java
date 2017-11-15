@@ -25,6 +25,9 @@ public class DashboardUI extends UI {
         addForm();
         addDashboardList();
         addDeleteButton();
+
+        //test text field
+        addTestTextField();
     }
 
     private void setUpLayout() {
@@ -61,5 +64,11 @@ public class DashboardUI extends UI {
 
     private void addDeleteButton(){
         root.addComponent(new Button("Delete complete"));
+    }
+
+    private void addTestTextField(){
+        TextField test = new TextField();
+        test.setStyleName(ValoTheme.TEXTFIELD_LARGE);
+        root.addComponent(test);
     }
 }
