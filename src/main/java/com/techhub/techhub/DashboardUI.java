@@ -1,5 +1,6 @@
 package com.techhub.techhub;
 
+import com.techhub.techhub.events.DashboardEventBus;
 import com.techhub.techhub.views.LoginView;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.icons.VaadinIcons;
@@ -12,6 +13,8 @@ import com.vaadin.ui.themes.ValoTheme;
 import org.aspectj.apache.bcel.classfile.Deprecated;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Locale;
+
 /**
  * Created by Miroslav Pashaliski on 11/15/2017.
  */
@@ -19,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class DashboardUI extends UI {
 
     private VerticalLayout root;
+    private final DashboardEventBus dashboardEventbus = new DashboardEventBus();
 
     @Autowired
     DashboadLayout dashboadLayout;
@@ -28,6 +32,10 @@ public class DashboardUI extends UI {
 
     @Override
     protected void init(VaadinRequest request){
+        setLocale(Locale.US);
+
+        DashboardEventBus.register(this);
+
         setUpLayout();
 
         Component login = loginView.buildLoginForm();
@@ -43,5 +51,8 @@ public class DashboardUI extends UI {
         setContent(root);
     }
 
+    public static DashboardEventBus getDashboardEventbus() {
+        return ((DashboardUI) getCurrent()).dashboardEventbus;
+    }
 
 }

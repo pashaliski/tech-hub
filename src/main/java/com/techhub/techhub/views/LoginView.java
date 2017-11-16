@@ -1,5 +1,7 @@
 package com.techhub.techhub.views;
 
+import com.techhub.techhub.events.DashboardEventBus;
+import com.techhub.techhub.events.DashboardEvent.UserLoginRequestedEvent;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
@@ -15,6 +17,7 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +29,9 @@ import java.util.Map;
 @SpringComponent
 @UIScope
 public class LoginView{
+
+    @Autowired
+    MainView mainView;
 
     public Component buildLoginForm() {
         final VerticalLayout loginPanel = new VerticalLayout();
@@ -66,8 +72,8 @@ public class LoginView{
         signin.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(final Button.ClickEvent event) {
-/*                DashboardEventBus.post(new UserLoginRequestedEvent(username
-                        .getValue(), password.getValue()));*/
+                mainView.createMainView();
+
             }
         });
         return fields;
